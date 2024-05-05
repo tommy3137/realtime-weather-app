@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { availableLocations } from './../utils/helper';
 
@@ -94,9 +94,16 @@ const Save = styled.button`
 `;
 
 const WeatherSetting = ({cityName, handleCurrentCityChange, handleCurrentPageChange}) => {
-    const [locationName, setLocationName] = useState(cityName);
+    const [locationName, setLocationName] = useState(cityName || availableLocations[0].cityName); 
+    // 設定選項預設指向目前選中的城市
+    useEffect(() => {
+        // 從localStorage取得城市名稱並設定為預設值
+        const savedCityName = localStorage.getItem('cityName');
+        setLocationName(savedCityName || '');
+    }, []); // 空的依賴陣列表示只在第一次渲染時執行
+    
     const handleChange = (e) => {
-        console.log(e.target.value);
+        console.log(`使用者選取的地區位置為：${e.target.value}`);
         // 將使用者輸入的內容更新到React內的資料狀態
         setLocationName(e.target.value);
     };
