@@ -65,7 +65,7 @@ export const availableLocations = [
     },
     {
       cityName: '苗栗縣',
-      locationName: '國一N142K', // 銅鑼鄉
+      locationName: '竹南', 
       sunriseCityName: '苗栗縣',
     },
     {

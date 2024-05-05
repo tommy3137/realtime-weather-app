@@ -54,10 +54,11 @@ const App = () => {
   const [currentTheme, setCurrentTheme] = useState('dark'); 
 
   // 使用useState定義目前要拉取天氣的地區currentCity
-  // 從localStorage取出先前保存過的地區，若沒有保存過就給預設值
+  // 從localStorage取出先前保存過的地區，若沒有保存過就給預設值，也給localStorage先儲存預設值
   // Lazy initialization：在useState裡這樣帶入函式，該函式的回傳值會是state的初始值且這個函式只有在元件首次載入(需要取得state的值)時才會執行
-  const [currentCity, setCurrentCity] = useState(() => localStorage.getItem('cityName') || '臺北市');
-  
+  const initCityName = localStorage.getItem('cityName') || '臺北市';
+  const [currentCity, setCurrentCity] = useState(initCityName);
+  useEffect(() => localStorage.setItem('cityName', initCityName));
   // 找出每支API需要帶入的locationName
   // 使用useMemo把取得的資料保存起來，只要currentCity沒有改變，即使元件重新轉譯也不用重新取值
   const currentLocation = useMemo(() => findLocation(currentCity), [currentCity]);
